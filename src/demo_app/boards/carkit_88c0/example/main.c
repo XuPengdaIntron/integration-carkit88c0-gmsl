@@ -35,7 +35,7 @@
 #define LOOP_DELAY_US            100000
 #define RESET_DELAY_US           5000   // 5ms delay after reset toggle
 #define FINISH_RAMP_DELAY_US     50000  // 50ms delay to finish ramp scenario
-#define NUM_ITERATIONS           50
+#define NUM_ITERATIONS           10000
 #define SPI_RETRANSMISSIONS      4
 
 /**
@@ -104,32 +104,32 @@ int main(void)
 {
     printf("=== IfxRfe App - CARKIT88C0 Example ===\n");
 
-    const Max20434Pec_t pmic = {.devAddrI2c = 0x3f};
+    // const Max20434Pec_t pmic = {.devAddrI2c = 0x3f};
 
     // =============== Initialize I2C Interface ===================
     // Initialize I2C bus 2 for communication
-    EXIT_ON_PLATFORM_ERROR(PlatformI2c_init(2), cleanup_platform());
+    EXIT_ON_PLATFORM_ERROR(PlatformI2c_init(1), cleanup_platform());
 
     // =============== Configure GPIO Pins ===================
     // Setup control and status pins for the CTRX devices
 
     // RFT (Ready for Transfer) pins - indicate when CTRXs are ready for SPI communication
-    EXIT_ON_PLATFORM_ERROR(PlatformGpio_configure(GPIO_ID_RFT, GPIO_FLAG_INPUT_ENABLE | GPIO_FLAG_PULL_DOWN), cleanup_platform());
+    // EXIT_ON_PLATFORM_ERROR(PlatformGpio_configure(GPIO_ID_RFT, GPIO_FLAG_INPUT_ENABLE | GPIO_FLAG_PULL_DOWN), cleanup_platform());
 
     // Reset pins
-    EXIT_ON_PLATFORM_ERROR(PlatformGpio_configure(GPIO_ID_RES_N, GPIO_FLAG_OUTPUT_DRIVE_HIGH | GPIO_FLAG_PULL_DOWN), cleanup_platform());
+    // EXIT_ON_PLATFORM_ERROR(PlatformGpio_configure(GPIO_ID_RES_N, GPIO_FLAG_OUTPUT_DRIVE_HIGH | GPIO_FLAG_PULL_DOWN), cleanup_platform());
 
     // Status monitoring pins
-    EXIT_ON_PLATFORM_ERROR(PlatformGpio_configure(GPIO_ID_OK, GPIO_FLAG_INPUT_ENABLE | GPIO_FLAG_PULL_DOWN), cleanup_platform());
+    // EXIT_ON_PLATFORM_ERROR(PlatformGpio_configure(GPIO_ID_OK, GPIO_FLAG_INPUT_ENABLE | GPIO_FLAG_PULL_DOWN), cleanup_platform());
     EXIT_ON_PLATFORM_ERROR(PlatformGpio_configure(GPIO_ID_SPI_BNE, GPIO_FLAG_INPUT_ENABLE | GPIO_FLAG_PULL_DOWN), cleanup_platform());
 
     // Read-only SPI pin
     EXIT_ON_PLATFORM_ERROR(PlatformGpio_configure(GPIO_ID_SPI_RO, GPIO_FLAG_OUTPUT_DRIVE_LOW | GPIO_FLAG_PULL_UP), cleanup_platform());
 
     // DMUX1 pin for device
-    EXIT_ON_PLATFORM_ERROR(PlatformGpio_configure(GPIO_ID_DMUX1, GPIO_FLAG_OUTPUT_DRIVE_HIGH | GPIO_FLAG_PULL_DOWN), cleanup_platform());
+    // EXIT_ON_PLATFORM_ERROR(PlatformGpio_configure(GPIO_ID_DMUX1, GPIO_FLAG_OUTPUT_DRIVE_HIGH | GPIO_FLAG_PULL_DOWN), cleanup_platform());
     // DMUX2 pin for device
-    EXIT_ON_PLATFORM_ERROR(PlatformGpio_configure(GPIO_ID_DMUX2, GPIO_FLAG_INPUT_ENABLE | GPIO_FLAG_PULL_DOWN), cleanup_platform());
+    // EXIT_ON_PLATFORM_ERROR(PlatformGpio_configure(GPIO_ID_DMUX2, GPIO_FLAG_INPUT_ENABLE | GPIO_FLAG_PULL_DOWN), cleanup_platform());
 
     // =============== Setup SPI Communication ===================
     // Configure SPI interface mapping for communication with CTRXs
@@ -200,7 +200,7 @@ int main(void)
     // =============== PMIC and Configuration Setup ===================
 
     // enable spread spectrum +-3% pseudo-random
-    EXIT_ON_IFXRFE_ERROR(Max20434_enableSpreadSpectrum(&pmic, SSE_3Percent_PseudoRandom), cleanup_platform());
+    // EXIT_ON_IFXRFE_ERROR(Max20434_enableSpreadSpectrum(&pmic, SSE_3Percent_PseudoRandom), cleanup_platform());
 
     // Initialize device configuration parameters
     IfxRfe_demoConfigParams_t configParams;

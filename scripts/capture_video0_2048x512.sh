@@ -11,10 +11,22 @@
 # reference document for more information on padding.
 # ------------------------------------------------------------------------------
 
+echo 1 > /sys/kernel/debug/bpmp/debug/clk/vi/mrq_rate_locked
+echo 1 > /sys/kernel/debug/bpmp/debug/clk/isp/mrq_rate_locked
+echo 1 > /sys/kernel/debug/bpmp/debug/clk/nvcsi/mrq_rate_locked
+echo 1 > /sys/kernel/debug/bpmp/debug/clk/emc/mrq_rate_locked
+
+echo 214300000 > /sys/kernel/debug/bpmp/debug/clk/nvcsi/rate
+
+cat /sys/kernel/debug/bpmp/debug/clk/vi/max_rate |tee /sys/kernel/debug/bpmp/debug/clk/vi/rate
+cat /sys/kernel/debug/bpmp/debug/clk/isp/max_rate | tee  /sys/kernel/debug/bpmp/debug/clk/isp/rate
+cat /sys/kernel/debug/bpmp/debug/clk/nvcsi/max_rate | tee /sys/kernel/debug/bpmp/debug/clk/nvcsi/rate
+cat /sys/kernel/debug/bpmp/debug/clk/emc/max_rate | tee /sys/kernel/debug/bpmp/debug/clk/emc/rate
+
 # Adapt parameters as needed
 OUTPUT_FOLDER="output"
 OUTPUT_FILE="${OUTPUT_FOLDER}/ctrx0_raw.bin"
-WIDTH="2048"
+WIDTH="1024"
 HEIGHT="512"
 PIXEL_FORMAT="RG12"
 DEVICE="/dev/video0"
@@ -28,6 +40,7 @@ v4l2-ctl -d $DEVICE \
     --set-fmt-video=width=$WIDTH,height=$HEIGHT,pixelformat=$PIXEL_FORMAT \
     --set-ctrl bypass_mode=0 \
     --stream-mmap \
+    --stream-count=50 \
     --stream-to=$OUTPUT_FILE
     
 EXIT_VALUE=$?

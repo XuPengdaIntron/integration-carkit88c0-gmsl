@@ -11,6 +11,7 @@
 #include "IfxRfe_Logger.h"
 #include "IfxRfe_State.h"
 #include "IfxRfe_TimeWrapper.h"
+#include "PlatformI2c.h"
 #include <stdio.h>
 
 /******************************************************************************/
@@ -32,8 +33,37 @@ error_t IfxRfe_waitForRftPin(uint32_t timeoutMs)
         return IFXRFE_E_INVALID_PARAMETER;
     }
 
+    // RFT (Ready for Transfer) status is read via I2C from the GMSL serializer.
+    // On this board the signal does not go through a physical GPIO pin.
+    #define RFT_I2C_ADDR     0x61
+    #define RFT_I2C_REG      0x02D0
+    #define RFT_I2C_BIT      3
 
-    return waitForPin(getCtrxPinDefinition()->spiRftId, timeoutMs);
+    int64_t deadline;
+    IFXRFE_RETURN_ON_ERROR(Wrapper_GetDeadLine(timeoutMs, &deadline));
+
+    uint8_t reg_value = 0;
+    bool state = false;
+    int64_t now;
+
+    IFXRFE_RETURN_ON_ERROR(Wrapper_Now(&now));
+
+    // Read the I2C register and extract the RFT bit
+    PlatformI2c_readWith16BitPrefix(RFT_I2C_ADDR, RFT_I2C_REG, 1, &reg_value);
+    state = (reg_value >> RFT_I2C_BIT) & 1;
+
+    while ((false == state) && (now < deadline))
+    {
+        PlatformI2c_readWith16BitPrefix(RFT_I2C_ADDR, RFT_I2C_REG, 1, &reg_value);
+        state = (reg_value >> RFT_I2C_BIT) & 1;
+        Wrapper_Now(&now);
+    }
+
+    if (false == state)
+    {
+        return IFXRFE_E_TIMEOUT;
+    }
+    return IFXRFE_E_SUCCESS;
 }
 
 error_t IfxRfe_waitForOkPin(uint32_t timeoutMs)
