@@ -215,11 +215,12 @@ int main(void)
     // Check the CTRX status
     IfxRfe_getStatusResult_t status = {0};
 
-    // Reset the CTRX by toggling the RESET_N pin
-    // Toggle RESET_N to properly initialize both CTRX devices
-    EXIT_ON_PLATFORM_ERROR(PlatformGpio_set(GPIO_ID_RES_N, false), cleanup_platform());  // Assert reset
+    // Reset the CTRX via I2C register 0x2C4 on device 0x61
+    uint8_t reset_val = 0x80;  // Assert reset
+    EXIT_ON_PLATFORM_ERROR(PlatformI2c_writeWith16BitPrefix(0x61, 0x2C4, 1, &reset_val), cleanup_platform());
     usleep(RESET_DELAY_US);
-    EXIT_ON_PLATFORM_ERROR(PlatformGpio_set(GPIO_ID_RES_N, true), cleanup_platform());  // Release reset
+    reset_val = 0x90;  // Deassert reset
+    EXIT_ON_PLATFORM_ERROR(PlatformI2c_writeWith16BitPrefix(0x61, 0x2C4, 1, &reset_val), cleanup_platform());
     usleep(RESET_DELAY_US);
 
     // Get status
