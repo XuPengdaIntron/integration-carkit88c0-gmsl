@@ -228,7 +228,7 @@ int PlatformI2c_writeWithPrefix(uint8_t devAddr, uint32_t prefix, uint16_t lengt
 {
     DBG_PRINTF_L1("DEBUG from %s() at %s:%d:\n", __func__, __FILE__, __LINE__);
     DBG_PRINTF_L1("    devAddr = 0x%02X\n", devAddr);
-    DBG_PRINTF_L1("    regAddr = 0x%02X\n", regAddr);
+    DBG_PRINTF_L1("    prefix = 0x%02X\n", prefix);
     DBG_PRINTF_L1("    length = %d\n", length);
 
     uint8_t write_buffer[255 + addressBytes];
