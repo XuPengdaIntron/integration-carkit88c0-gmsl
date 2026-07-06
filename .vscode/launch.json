@@ -1,0 +1,49 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug CARKIT88C0 Example (Local)",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/src/demo_app/boards/carkit_88c0/example/bin/carkit88c0_gmsl_example",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "sourceFileMap": {
+                "/home/user/workspace_rk/integration-carkit88c0-gmsl/src/demo_app/boards/../boards": "${workspaceFolder}/src/demo_app/boards",
+                "/home/user/workspace_rk/integration-carkit88c0-gmsl/src/demo_app/boards/..": "${workspaceFolder}/src/demo_app"
+            },
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "${workspaceFolder}/.vscode/sudo-gdb.sh",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "Build CARKIT88C0 (Debug)",
+            "logging": {
+                "engineLogging": false
+            }
+        },
+        {
+            "name": "Debug CARKIT88C0 Example (Attach)",
+            "type": "cppdbg",
+            "request": "attach",
+            "program": "${workspaceFolder}/src/demo_app/boards/carkit_88c0/example/bin/carkit88c0_gmsl_example",
+            "processId": "${command:pickProcess}",
+            "MIMode": "gdb",
+            "miDebuggerPath": "/usr/bin/gdb",
+            "setupCommands": [
+                {
+                    "description": "Enable pretty-printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                }
+            ]
+        }
+    ]
+}

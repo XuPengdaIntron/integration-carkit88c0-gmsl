@@ -1,0 +1,50 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build CARKIT88C0 (Debug)",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "clean",
+                "debug"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/src/demo_app/boards/carkit_88c0/example"
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "detail": "Clean and rebuild the CARKIT88C0 example with debug symbols (-g -O0)"
+        },
+        {
+            "label": "Build CARKIT88C0 (Release)",
+            "type": "shell",
+            "command": "make",
+            "args": [],
+            "options": {
+                "cwd": "${workspaceFolder}/src/demo_app/boards/carkit_88c0/example"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "detail": "Build the CARKIT88C0 example with release optimization (-O2)"
+        },
+        {
+            "label": "Clean CARKIT88C0",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "clean"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/src/demo_app/boards/carkit_88c0/example"
+            },
+            "problemMatcher": []
+        }
+    ]
+}
