@@ -189,18 +189,8 @@ int PlatformGpio_configure(uint16_t id, uint8_t flags)
     }
 
     int config_flags = 0;
-    if (flags & GPIO_FLAG_PULL_UP)
-    {
-        config_flags |= GPIOD_LINE_REQUEST_FLAG_BIAS_PULL_UP;
-    }
-    else if (flags & GPIO_FLAG_PULL_DOWN)
-    {
-        config_flags |= GPIOD_LINE_REQUEST_FLAG_BIAS_PULL_DOWN;
-    }
-    else
-    {
-        config_flags |= GPIOD_LINE_REQUEST_FLAG_BIAS_DISABLE;
-    }
+    // Note: bias control not supported in libgpiod v1.x
+    // Bias is configured via pinmux instead
 
     struct gpiod_line_request_config config =
         {

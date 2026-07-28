@@ -108,7 +108,7 @@ int main(void)
 
     // =============== Initialize I2C Interface ===================
     // Initialize I2C bus 2 for communication
-    EXIT_ON_PLATFORM_ERROR(PlatformI2c_init(1), cleanup_platform());
+    EXIT_ON_PLATFORM_ERROR(PlatformI2c_init(8), cleanup_platform());
 
     // =============== Configure GPIO Pins ===================
     // Setup control and status pins for the CTRX devices

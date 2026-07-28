@@ -16,8 +16,8 @@
 #define GPIO_OFFSET_OK      3  // PAC.04 (gpio490)
 #define GPIO_OFFSET_DMUX1   4  // PAC.01 (gpio487)
 #define GPIO_OFFSET_DMUX2   5    // PAA.04 (gpio320)
-#define GPIO_OFFSET_SPI_RO  98   // PP.06 (gpio446, 446-348=98)
-#define GPIO_OFFSET_SPI_BNE 142  // PAC.04 (gpio490, 490-348=142)
+#define GPIO_OFFSET_SPI_RO  80   // PM.04 (gpiochip0 80)
+#define GPIO_OFFSET_SPI_BNE 101  // PQ.01  (gpiochip0 101)
 
 #define GPIO_ID_RES_N   (((GPIO_CHIP_0_ID & 0xFF) << 8) | (GPIO_OFFSET_RES_N & 0xFF))
 #define GPIO_ID_RFT     (((GPIO_CHIP_1_ID & 0xFF) << 8) | (GPIO_OFFSET_RFT & 0xFF))
