@@ -26,7 +26,7 @@ cat /sys/kernel/debug/bpmp/debug/clk/emc/max_rate | tee /sys/kernel/debug/bpmp/d
 # Adapt parameters as needed
 OUTPUT_FOLDER="output"
 OUTPUT_FILE="${OUTPUT_FOLDER}/ctrx0_raw.bin"
-WIDTH="1024"
+WIDTH="2048"
 HEIGHT="512"
 PIXEL_FORMAT="RG12"
 DEVICE="/dev/video0"
